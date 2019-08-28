@@ -1,3 +1,15 @@
+  <!-- ******************************************************************* -->
+                 <!-- BACK-END, VALIDAÇÃO DE ACESSO -->
+  <!-- ******************************************************************* -->
+  
+<?php
+  session_start();
+  if(!isset($_SESSION['usuario']) & !isset($_SESSION['inicio'])){
+    echo "Esta página é restrita a usuarios autenticados. Por gentileza volte para a página
+    de <a href=\"login.php\">login</a>";
+    die(); // Interrompe a navegação
+  };
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -6,41 +18,85 @@
       <meta name="author" content="Luiz Dendena">
       <meta name="description" content="control">
       <!--Design Responsivo-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       <title id="title">Registro de saídas</title>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
-    </head>
-    <body>
-      <div>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+
+  <!-- ******************************************************************* -->
+              <!-- FRONT-END, FORMULÁRIO DE PESQUISA POR ID -->
+  <!-- ******************************************************************* -->
+
+    <body id="body-pg-out">
+      <div id="box-out">
         <form action="" method="post">
-          <ul>
-            <li>
-              <label for="id">Informe o Id para registrar a saída:</label><br>
-              <input type="text" placeholder="Id..." id="id" name="id">
-            </li>
-            <li>
-              <input type="submit" name="registrar" value="Confirmar">
-            </li>
-          </ul>
-        </form>
-      </div>
-      <?php include_once "../_include/conexao.php" ?>
-          <?
-            if(isset($_POST['Confirmar'])){
+          <div class="form-group">
+            <label for="id">Informe o Id:</label><br>
+            <input id="id" name="id" type="text" class="form-control" id="validationCustom01" placeholder="Pesquisar">
+          </div>
+          <button name="Pesquisar" value="Pesquisar" type="submit" class="btn btn-primary">Pesquisar</button>
+
+  <!-- ******************************************************************* -->
+                      <!-- TABELA DE CONFERÊNCIA -->
+  <!-- ****** ************************************************************* -->
+
+          <?php include_once "../_include/conexao.php";?>  
+          <?if(isset($_POST['Pesquisar'])){
               $id = $_POST['id'];
-              $sql = "select ID from registros where ID = '$id";
-              if(mysqli_query($conexao, $sql)){
+              $sql = "select ID, PLACA, MODELO, COR, HORAIN, DATA from registros where ID = '$id'";
+              $resultado = mysqli_query($conexao, $sql);?>
+              <table id="table-reg" class="table">
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">Placa</th>
+                  <th scope="col">Modelo</th>
+                  <th scope="col">Cor</th>
+                  <th scope="col">Horário de entrada</th>
+                  <th scope="col">Data</th>
+                </tr>
+              <?while($row = mysqli_fetch_array($resultado)){ ?>
+                  <tr>
+                    <td scope="row"><? echo "$row[0]";?></td>
+                    <td><? echo "$row[1]";?></td>
+                    <td><? echo "$row[2]";?></td>
+                    <td><? echo "$row[3]";?></td>
+                    <td><? echo "$row[4]";?></td>
+                    <td><? echo "$row[5]";?></td>
+                  </tr>
+                <?}?>
+              </table>
+          <?}?>
+  <!-- ******************************************************************* -->
+            <!-- FRONT-END, FORMULÁRIO DE CONFIRMAÇÃO POR PLACA -->
+  <!-- ******************************************************************* -->
+          <div class="form-group">
+            <label for="Placa">Informe a placa para confirmar a saída:</label><br>
+            <input id="placa" name="placa" type="text" class="form-control" id="validationCustom01" placeholder="Placa">
+          </div>
+          <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Confirmar</button>
+
+  <!-- ******************************************************************* -->
+    <!-- BACK-END, ENVIO DO FORMULÁRIO E ATUAIZAÇÃO DE REGISTRO NO BANCO -->
+  <!-- ******************************************************************* -->
+
+            <?if(isset($_POST['Confirmar'])){
+                $placa = $_POST['placa'];
                 date_default_timezone_set('America/Sao_Paulo');
                 $hora = date("H:i");
-                $sql = " update registros set horaOut = '$hora' where ID = '$id'";
+                $sql = "update registros set HORAOUT = '$hora' where PLACA = '$placa'";
+                echo mysqli_error($conexao);
                 if(mysqli_query($conexao, $sql)){
-                  echo "Registro de saída efetuado com sucesso";
+                  echo "<h4 id=\"msg-ok-out\">Registro de saída efetuado com sucesso!</h4>";
+                  echo "<i id=\"icone-ok-out\"class=\"material-icons\">&#xe876;</i>";
                 }
-              }
-              else echo "Id informado não corresponde a nenhum registro";
-              # Pensar mais afundo a respeito de erros que podem vir a surgir #
-            }
-          ?>
+                else echo "erro"; 
+              }?>
+        </form>
+      </div>
+      <a id="link-out" href="../_pages/index.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i id="icone-out" class="material-icons">&#xe5c4;</i>Voltar</a>;
     </body>
 </html>

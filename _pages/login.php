@@ -6,28 +6,36 @@
       <meta name="author" content="Luiz Dendena">
       <meta name="description" content="control">
       <!--Design Responsivo-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       <title id="title">Control</title>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
-	<body>
-		<div>
-			<form action="" method="post">
-				<ul>
-					<li>
-						<label for="user">Login:</label><br>
-            			<input type="text" placeholder="Login..." id="user" name="user">
-						</li>
-					<li>
-						<label for="senha">Senha:</label><br>
-            			<input type="password" placeholder="******..." id="senha" name="senha">
-					</li>
-					<li>
-            			<input type="submit" name="Confirmar" value="Confirmar">
-          			</li>
-				</ul>
-			</form>
-		</div>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	</head>
+
+	<!-- ******************************************************************* -->
+					<!-- FRONT-END, FORMULÁRIO DE LOGIN -->
+	<!-- ******************************************************************* -->
+
+	<body id="body-login">
+		<i class="material-icons" id="icone-login">&#xe531;</i>
+		<form action="" method="post" id="container-box-login">
+			<div class="form-group">
+			    <label class="font-color" for="exampleInputEmail1">Login</label>
+			    <input name="user" type="text" class="form-control" id="validationCustom01" aria-describedby="emailHelp" placeholder="User">
+			</div>
+			<div class="form-group">
+			    <label class="font-color" for="exampleInputPassword1">Senha</label>
+			    <input name="senha" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			</div>
+			  <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Confirmar</button>
+		</form>
+
+	<!-- ******************************************************************* -->
+					<!-- BACK-END, CONFIRMAÇÃO DE LOGIN -->
+	<!-- ******************************************************************* -->
+
 		<?php include_once "../_include/conexao.php" ?>
 			<?
 				if(isset($_POST['Confirmar'])){

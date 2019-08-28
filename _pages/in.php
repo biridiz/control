@@ -1,3 +1,15 @@
+  <!-- ******************************************************************* -->
+                 <!-- BACK-END, VALIDAÇÃO DE ACESSO -->
+  <!-- ******************************************************************* -->
+
+<?php
+  session_start();
+  if(!isset($_SESSION['usuario']) & !isset($_SESSION['inicio'])){
+    echo "Esta página é restrita a usuarios autenticados. Por gentileza volte para a página
+    de <a href=\"login.php\">login</a>";
+    die(); // Interrompe a navegação
+  };
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -6,74 +18,88 @@
       <meta name="author" content="Luiz Dendena">
       <meta name="description" content="control">
       <!--Design Responsivo-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       <title id="title">Registro de entradas</title>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
-    <body>
-      <?php include_once "../_include/conexao.php" ?>
+    <body id="body-pg-in">
 
+  <!-- ******************************************************************* -->
+          <!-- BACK-END, ENVIO DE FORMULÁRIO -->
+  <!-- ******************************************************************* -->
+
+      <?php include_once "../_include/conexao.php" ?>
           <?
             date_default_timezone_set('America/Sao_Paulo');
+            $erro = 0;
+            $one = '';
+            $two = '';
+            $tree = '';
             if(isset($_POST['Confirmar'])){
-              $placa = $_POST['placa'];
-              $modelo = $_POST['modelo'];
-              $cor = $_POST['cor'];
-              $data = date("d/m/Y");
-              $hora = date("H:i");
-            }
-            if(empty($placa)){
-              $erro ++;
-              $one = "Campo placa não preenchido";
-            }
-            if(empty($modelo)){
-              $erro ++;
-              $two = "Campo modelo não preenchido";
-            }
-            if(empty($cor)){
-              $erro ++;
-              $tree = "Campo cor não preenchido";
-            }
-            if($erro == 0){
-              $sql = "insert into registros (placa, modelo, cor, data, hora) values 
-                      ('$placa', '$modelo', '$cor', '$data', '$horaIn')";
-              if(mysqli_query($conexao, $sql)){
-                echo "Registro efetuado com sucesso!";
-                header("Location: ../_pages/index.php");
-                # Aqui entra a impressão #
-                # Fazer classe com funcão específica pra isso #
+              $placa = strtoupper($_POST['placa']);
+              $modelo = strtoupper($_POST['modelo']);
+              $cor = strtoupper($_POST['cor']);
+              $data = date("Y/m/d");
+              $horaIn = date("H:i");
+              if(empty($placa)){
+                $erro ++;
+                $one = "Campo placa não preenchido";
+              }
+              if(empty($modelo)){
+                $erro ++;
+                $two = "Campo modelo não preenchido";
+              }
+              if(empty($cor)){
+                $erro ++;
+                $tree = "Campo cor não preenchido";
+              }
+              if($erro == 0){
+                $sql = "insert into registros (PLACA, MODELO, COR, DATA, HORAIN) values 
+                        ('$placa', '$modelo', '$cor', '$data', '$horaIn')";
+                if(mysqli_query($conexao, $sql)){
+                  echo "<h4 id=\"msg-ok\">Registro efetuado com sucesso!</h4>";
+                  echo "<i id=\"icone-ok\"class=\"material-icons\">&#xe876;</i>";
+                  # Aqui entra a impressão #
+                  # Fazer classe com funcão específica pra isso #
+                }else echo mysqli_error($conexao);
+              }
+              else{
+                echo "Ocorreu um erro no registro";
+                # Pensar mais afundo a respeito de erros que podem vir a surgir #
               }
             }
-            else{
-              echo "Ocorreu um erro no registro";
-              echo "<p><a href=\"../_pages/index.php\">Voltar</a></p>";
-              # Pensar mais afundo a respeito de erros que podem vir a surgir #
-            }
           ?>
-    	<div>
+
+    <!-- ******************************************************************* -->
+               <!-- FRONT-END, FORMULÁRIO DE REGISTRO DE ENTRADA -->
+    <!-- ******************************************************************* -->
+
+    	<div id="box-form-in">
     		<form action="" method="post">
-    			<ul>
-      			<li>
-  						<label for="placa">Placa:</label><br>
-              <input type="text" placeholder="Placa..." id="placa" name="placa">
-              <? echo "$one" ?>
-  					</li>
-  					<li>
-  						<label for="modelo">Modelo/Nome:</label><br>
-              <input type="text" placeholder="Modelo..." id="modelo" name="modelo">
-              <? echo "$two" ?>
-  					</li>
-  					<li>
-  						<label for="cor">Cor:</label><br>
-              <input type="text" placeholder="Cor..." id="cor" name="cor">
-              <? echo "$tree" ?>
-  					</li>
-  					<li>
-              <input type="submit" name="registrar" value="Confirmar">
-            </li>
-    			</ul>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Placa:</span>
+            </div>
+            <input type="text" id="placa" name="placa" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Modelo/Nome:</span>
+            </div>
+            <input type="text"  id="modelo" name="modelo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">Cor:</span>
+            </div>
+            <input type="text"  id="cor" name="cor" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Confirmar</button>
     		</form>
     	</div>
+      <a id="link-in" href="../_pages/index.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i id="icone-in" class="material-icons">&#xe5c4;</i>Voltar</a>
     </body>
 </html>
