@@ -21,7 +21,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       <title id="title">Registro de entradas</title>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
@@ -36,8 +35,6 @@
             date_default_timezone_set('America/Sao_Paulo');
             $erro = 0;
             $one = '';
-            $two = '';
-            $tree = '';
             if(isset($_POST['Confirmar'])){
               $placa = strtoupper($_POST['placa']);
               $modelo = strtoupper($_POST['modelo']);
@@ -48,20 +45,13 @@
                 $erro ++;
                 $one = "Campo placa não preenchido";
               }
-              if(empty($modelo)){
-                $erro ++;
-                $two = "Campo modelo não preenchido";
-              }
-              if(empty($cor)){
-                $erro ++;
-                $tree = "Campo cor não preenchido";
-              }
               if($erro == 0){
                 $sql = "insert into registros (PLACA, MODELO, COR, DATA, HORAIN) values 
                         ('$placa', '$modelo', '$cor', '$data', '$horaIn')";
                 if(mysqli_query($conexao, $sql)){
                   echo "<h4 id=\"msg-ok\">Registro efetuado com sucesso!</h4>";
-                  echo "<i id=\"icone-ok\"class=\"material-icons\">&#xe876;</i>";
+                  //include_once "../impressora.php";
+                  # include_once "../ethernet.php";
                   # Aqui entra a impressão #
                   # Fazer classe com funcão específica pra isso #
                 }else echo mysqli_error($conexao);
@@ -83,23 +73,23 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Placa:</span>
             </div>
-            <input type="text" id="placa" name="placa" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text" id="placa" name="placa" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> <? echo "$one"; ?>
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Modelo/Nome:</span>
             </div>
-            <input type="text"  id="modelo" name="modelo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text"  id="modelo" name="modelo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">*Opcional
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Cor:</span>
             </div>
-            <input type="text"  id="cor" name="cor" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            <input type="text"  id="cor" name="cor" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">*Opcional
           </div>
-          <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Confirmar</button>
+          <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Imprimir</button>
     		</form>
     	</div>
-      <a id="link-in" href="../_pages/index.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i id="icone-in" class="material-icons">&#xe5c4;</i>Voltar</a>
+      <a id="link-in" href="../_pages/index.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Voltar</a>
     </body>
 </html>

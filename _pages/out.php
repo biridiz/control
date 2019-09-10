@@ -21,7 +21,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       <title id="title">Registro de saídas</title>
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
@@ -46,16 +45,12 @@
           <?php include_once "../_include/conexao.php";?>  
           <?if(isset($_POST['Pesquisar'])){
               $id = $_POST['id'];
-              $sql = "select ID, PLACA, MODELO, COR, HORAIN, DATA from registros where ID = '$id'";
+              $sql = "select ID, PLACA, DATA from registros where ID = '$id'";
               $resultado = mysqli_query($conexao, $sql);?>
               <table id="table-reg" class="table">
                 <tr>
                   <th scope="col">Id</th>
-                  <th scope="col">Modelo</th>
                   <th scope="col">Placa</th>
-                  <th scope="col">Modelo</th>
-                  <th scope="col">Cor</th>
-                  <th scope="col">Horário de entrada</th>
                   <th scope="col">Data</th>
                 </tr>
               <?while($row = mysqli_fetch_array($resultado)){ ?>
@@ -63,16 +58,15 @@
                     <td scope="row"><? echo "$row[0]";?></td>
                     <td><? echo "$row[1]";?></td>
                     <td><? echo "$row[2]";?></td>
-                    <td><? echo "$row[3]";?></td>
-                    <td><? echo "$row[4]";?></td>
-                    <td><? echo "$row[5]";?></td>
                   </tr>
                 <?}?>
               </table>
           <?}?>
+ 
   <!-- ******************************************************************* -->
             <!-- FRONT-END, FORMULÁRIO DE CONFIRMAÇÃO POR PLACA -->
   <!-- ******************************************************************* -->
+          
           <div class="form-group">
             <label for="Placa">Informe a placa para confirmar a saída:</label><br>
             <input id="placa" name="placa" type="text" class="form-control" id="validationCustom01" placeholder="Placa">
@@ -91,12 +85,11 @@
                 echo mysqli_error($conexao);
                 if(mysqli_query($conexao, $sql)){
                   echo "<h4 id=\"msg-ok-out\">Registro de saída efetuado com sucesso!</h4>";
-                  echo "<i id=\"icone-ok-out\"class=\"material-icons\">&#xe876;</i>";
                 }
                 else echo "erro"; 
               }?>
         </form>
       </div>
-      <a id="link-out" href="../_pages/index.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"><i id="icone-out" class="material-icons">&#xe5c4;</i>Voltar</a>;
+      <a id="link-out" href="../_pages/index.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Voltar</a>;
     </body>
 </html>
