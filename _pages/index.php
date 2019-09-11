@@ -32,7 +32,7 @@
   <body id="body-index">
 		<div id="box-opt">
 			<form action="" method="post">
-        <button type="submit" name="in" class="btn btn-primary btn-lg btn-block">Registrar Entrada para evento simples</button>
+        <button type="submit" name="in" class="btn btn-primary btn-lg btn-block">Registrar Entrada</button>
         <button type="submit" name="out" class="btn btn-primary btn-lg btn-block">Registrar Saída</button>
         <button type="submit" name="config" class="btn btn-primary btn-lg btn-block"disabled>Controle</button>
 			</form>
