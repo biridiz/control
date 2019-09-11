@@ -31,7 +31,7 @@
   <!-- ******************************************************************* -->
 
       <?php include_once "../_include/conexao.php" ?>
-          <?
+          <?php
             date_default_timezone_set('America/Sao_Paulo');
             $erro = 0;
             $one = '';
@@ -50,10 +50,7 @@
                         ('$placa', '$modelo', '$cor', '$data', '$horaIn')";
                 if(mysqli_query($conexao, $sql)){
                   echo "<h4 id=\"msg-ok\">Registro efetuado com sucesso!</h4>";
-                  //include_once "../impressora.php";
-                  include_once "../ethernet.php";
-                  # Aqui entra a impressão #
-                  # Fazer classe com funcão específica pra isso #
+                  include_once "../escpos-php/example/interface/ethernet.php";
                 }else echo mysqli_error($conexao);
               }
               else{

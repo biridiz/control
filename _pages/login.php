@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 	<head>
       <meta charset="utf-8"><!--faz o site aceitar o padrao universao de caracteres com acentos e cedilha-->
@@ -37,7 +37,7 @@
 	<!-- ******************************************************************* -->
 
 		<?php include_once "../_include/conexao.php" ?>
-			<?
+			<?php
 				if(isset($_POST['Confirmar'])){
 					$login = $_POST['user'];
 					$senha = $_POST['senha'];

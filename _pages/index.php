@@ -80,7 +80,7 @@
           </tr>
         </thead>
         <tbody>
-        <?
+        <?php
         $resultado = '';
         if(isset($_POST['search'])) {
           $id = $_POST['pesq'];
@@ -88,13 +88,14 @@
           $resultado = mysqli_query($conexao, $sql);
           while($row = mysqli_fetch_array($resultado)){ ?>
             <tr>
-              <th scope="row"><? echo "$row[0]";?></td>
-              <td><? echo "$row[1]";?></td>
-              <td><? echo "$row[2]";?></td>
-              <td><? echo "$row[3]";?></td>
-              <td><? echo "$row[4]";?></td>
+              <th scope="row"><?php echo "$row[0]";?></td>
+              <td><?php echo "$row[1]";?></td>
+              <td><?php echo "$row[2]";?></td>
+              <td><?php echo "$row[3]";?></td>
+              <td><?php echo "$row[4]";?></td>
             </tr>
-        <?}
+        <?php
+          }
         }?>         
          </tbody>
       </table>
