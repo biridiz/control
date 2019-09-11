@@ -2,6 +2,11 @@ create database control DEFAULT CHARACTER SET utf8 COLLATE
 utf8_general_ci;
 use control;
 
+CREATE USER 'master'@'localhost' IDENTIFIED BY 'senha'; 
+GRANT SELECT, INSERT, UPDATE, DELETE ON Site.* TO
+'master'@'localhost';
+GRANT ALL ON … 
+
 create table registros (
 	ID integer(6) AUTO_INCREMENT not null primary key,
 	PLACA varchar(8) not null,
