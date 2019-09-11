@@ -51,7 +51,7 @@
                 if(mysqli_query($conexao, $sql)){
                   echo "<h4 id=\"msg-ok\">Registro efetuado com sucesso!</h4>";
                   //include_once "../impressora.php";
-                  # include_once "../ethernet.php";
+                  include_once "../ethernet.php";
                   # Aqui entra a impressão #
                   # Fazer classe com funcão específica pra isso #
                 }else echo mysqli_error($conexao);
