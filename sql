@@ -1,10 +1,10 @@
-create database control DEFAULT CHARACTER SET utf8 COLLATE
+﻿create database control DEFAULT CHARACTER SET utf8 COLLATE
 utf8_general_ci;
 use control;
 
-CREATE USER 'master'@'localhost' IDENTIFIED BY 'senha'; 
-GRANT SELECT, INSERT, UPDATE, DELETE ON Site.* TO
-'master'@'localhost';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'usgh*162Tjsi'; 
+GRANT SELECT, INSERT, UPDATE, DELETE ON control.* TO
+'admin'@'localhost';
 GRANT ALL ON … 
 
 create table registros (

@@ -43,7 +43,8 @@
   <!-- ****** ************************************************************* -->
 
           <?php include_once "../_include/conexao.php";?>  
-          <?if(isset($_POST['Pesquisar'])){
+          <?php
+          if(isset($_POST['Pesquisar'])){
               $id = $_POST['id'];
               $sql = "select ID, PLACA, DATA from registros where ID = '$id'";
               $resultado = mysqli_query($conexao, $sql);?>
@@ -53,15 +54,17 @@
                   <th scope="col">Placa</th>
                   <th scope="col">Data</th>
                 </tr>
-              <?while($row = mysqli_fetch_array($resultado)){ ?>
+              <?php
+              while($row = mysqli_fetch_array($resultado)){ ?>
                   <tr>
-                    <td scope="row"><? echo "$row[0]";?></td>
-                    <td><? echo "$row[1]";?></td>
-                    <td><? echo "$row[2]";?></td>
+                    <td scope="row"><?php echo "$row[0]";?></td>
+                    <td><?php echo "$row[1]";?></td>
+                    <td><?php echo "$row[2]";?></td>
                   </tr>
                 <?}?>
               </table>
-          <?}?>
+          <?php
+          }?>
  
   <!-- ******************************************************************* -->
             <!-- FRONT-END, FORMULÁRIO DE CONFIRMAÇÃO POR PLACA -->
@@ -77,7 +80,8 @@
     <!-- BACK-END, ENVIO DO FORMULÁRIO E ATUAIZAÇÃO DE REGISTRO NO BANCO -->
   <!-- ******************************************************************* -->
 
-            <?if(isset($_POST['Confirmar'])){
+            <?php
+            if(isset($_POST['Confirmar'])){
                 $placa = $_POST['placa'];
                 date_default_timezone_set('America/Sao_Paulo');
                 $hora = date("H:i");
