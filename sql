@@ -8,12 +8,12 @@ create table registros (
 	MODELO varchar(20),
 	COR varchar(20),
 	DATA date not null,
-	CORTESIA,
-	HORAIN time,
+	CORTESIA varchar(2),
+	HORAIN time
 	HORAOUT time,
-	ID_CLIENTE,
-	ID_USER,
-	ID_EVENTO
+	ID_CLIENTE integer(6),
+	ID_USER integer(6),
+	ID_EVENTO integer(6)
 );
 
 create table cliente (
