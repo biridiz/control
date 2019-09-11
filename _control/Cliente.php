@@ -60,4 +60,46 @@ class Cliente {
 			return true;
 		} else { return false; }
 	}
+
+	public function modificarTelefone($paramTelefone, $paramID) {
+
+		include_once "../_include/conexao.php";
+
+		$sql = "update Cliente set TELEFONE = '$paramTelefone' where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			return true;
+		} else { return false; }
+	}
+
+	public function modificarCpf($paramCpf, $paramID) {
+
+		include_once "../_include/conexao.php";
+
+		$sql = "update Cliente set CPF = '$paramCpf' where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			return true;
+		} else { return false; }
+	}
+
+	public function deletar($paramID) {
+
+		include_once "../_include/conexao.php";
+
+		$sql = "delete from Cliente where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			return true;
+		} else { return false; }
+	}
+
+	public function listar() {
+
+		include_once "../_include/conexao.php";
+
+		$sql = "select ID, NOME, TELEFONE, CPF from Cliente";
+		$resultado = mysqli_query($conexao, $sql);
+		$row = mysqli_fetch_array($resultado);
+		if(mysqli_query($conexao, $sql)) {
+			return $row;
+		} else { return false; }
+	}
 }

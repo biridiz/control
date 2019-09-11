@@ -32,6 +32,7 @@ class Registro {
 		$this -> horaOut = $row[7];
 	}
 
+
 	public function getID() {
 		return $this -> id;
 	}
@@ -62,5 +63,16 @@ class Registro {
 
 	public function getHoraOut() {
 		return $this -> horaOut;
+	}
+
+
+	public function adicionarUser($paramPlaca, $paramModelo, $paramCor, $paramData, $paramCortesia, $paramHoraIn, $paramHoraOut) {
+		
+		include_once "../_include/conexao.php";
+
+		$sql = "insert into usr(PLACA, MODELO, COR, DATA, CORTESIA, HORAIN, HORAOUT) values ('$paramNome', '$paramTelefone', '$paramCpf')";
+		if(mysqli_query($conexao, $sql)) {
+			return true;
+		} else { return false; }
 	}
 }
