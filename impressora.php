@@ -10,10 +10,6 @@ include_once "_pages/in.php";
 try {
     // Enter the device file for your USB printer here
     $connector = new NetworkPrintConnector("192.168.1.40", 9100);
-    //$connector = new FilePrintConnector("/dev/usb/lp0");
-    //$connector = new FilePrintConnector("/dev/usb/lp1");
-    //$connector = new FilePrintConnector("/dev/usb/lp2");
-    $connector = new FilePrintConnector("php://stdout");
     $printer = new Printer($connector);
     
     /* Initialize */
@@ -21,7 +17,6 @@ try {
     
     /* Print a "Hello world" receipt" */
     $printer = new Printer($connector);
-    $printer -> text("hellow world\n");
     /*$printer -> text("Nome do Aplicativo/Empresa!\n");
     $printer -> text("Nome do evento!\n");
     $printer -> text("$data\n");
