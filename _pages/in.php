@@ -84,6 +84,16 @@
             </div>
             <input type="text"  id="cor" name="cor" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">*Opcional
           </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default">Preço:</span>
+              </div>
+            <input type="text"  id="modelo" name="modelo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">*Opcional
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">CREDENCIAL</label>
+          </div>
           <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Imprimir</button>
     		</form>
     	</div>
