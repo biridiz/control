@@ -40,3 +40,11 @@ create table evento (
 	PRECO double,
 	CIDADE varchar(30)
 );
+
+create table credencial (
+	ID integer(6) AUTO_INCREMENT not null primary key;
+	CODIGO varchar(17) not null;
+	ID_EXTERNO (3) not null;
+);
+
+insert into credencia (CODIGO, ID_EXTERNO) VALUES ('SERD83470GSJS834', 001);
