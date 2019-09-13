@@ -54,12 +54,11 @@
                   <th scope="col">Placa</th>
                   <th scope="col">Data</th>
                 </tr>
-              <?php
-              while($row = mysqli_fetch_array($resultado)){ ?>
+              <?while($row = mysqli_fetch_array($resultado)){ ?>
                   <tr>
-                    <td scope="row"><?php echo "$row[0]";?></td>
-                    <td><?php echo "$row[1]";?></td>
-                    <td><?php echo "$row[2]";?></td>
+                    <td scope="row"><? echo "$row[0]";?></td>
+                    <td><? echo "$row[1]";?></td>
+                    <td><? echo "$row[2]";?></td>
                   </tr>
                 <?}?>
               </table>
