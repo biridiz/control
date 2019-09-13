@@ -37,17 +37,7 @@
         <button type="submit" name="config" class="btn btn-primary btn-lg btn-block"disabled>Controle</button>
 			</form>
 		</div>
-
-    <!-- ******************************************************************* -->
-                  <!-- FRONT-END, CAIXA DE PESQUISA -->
-    <!-- ******************************************************************* -->
-
-    <div>
-      <form action="" method="post" id="form-pesq">
-        <div class="form-group">
-          <input name="pesq" id='pesq' type="text" class="form-control" id="validationCustom01" placeholder="Pesquisar">
-          <button type="submit" name="search" class="btn btn-outline-dark"><!--<i class="material-icons">&#xe8b6;</i>--></button>
-
+    
     <!-- ******************************************************************* -->
           <!-- BACK-END, REDIRECIONAMENTO DE ACORDO COM BOTÔES -->
     <!-- ******************************************************************* -->
@@ -60,6 +50,17 @@
           header("Location: ../_pages/out.php");
         } 
       ?>
+
+    <!-- ******************************************************************* -->
+                  <!-- FRONT-END, CAIXA DE PESQUISA -->
+    <!-- ******************************************************************* -->
+
+    <div>
+      <form action="" method="post" id="form-pesq">
+        <div class="form-group">
+          <input name="pesq" id='pesq' type="text" class="form-control" id="validationCustom01" placeholder="Pesquisar">
+          <button type="submit" name="search" class="btn btn-outline-dark"><!--<i class="material-icons">&#xe8b6;</i>--></button>
+          <button type="submit" name="search_exclusive" class="btn btn-outline-dark"><!--<i class="material-icons">&#xe8b6;</i>--></button>
         </div>
       </form>
     </div>
@@ -85,6 +86,23 @@
         if(isset($_POST['search'])) {
           $id = $_POST['pesq'];
           $sql = "select ID, PLACA, HORAIN, HORAOUT, DATA from registros where ID = '$id'";
+          $resultado = mysqli_query($conexao, $sql);
+          while($row = mysqli_fetch_array($resultado)){ ?>
+            <tr>
+              <th scope="row"><?php echo "$row[0]";?></td>
+              <td><?php echo "$row[1]";?></td>
+              <td><?php echo "$row[2]";?></td>
+              <td><?php echo "$row[3]";?></td>
+              <td><?php echo "$row[4]";?></td>
+            </tr>
+        <?php
+          }
+        }?> 
+        <?php
+        $resultado = '';
+        if(isset($_POST['search_exclusive'])) {
+          $id = $_POST['pesq'];
+          $sql = "select CODIGO from credencial where ID_EXTERNO = '$id'";
           $resultado = mysqli_query($conexao, $sql);
           while($row = mysqli_fetch_array($resultado)){ ?>
             <tr>

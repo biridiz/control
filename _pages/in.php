@@ -41,13 +41,16 @@
               $cor = strtoupper($_POST['cor']);
               $data = date("Y/m/d");
               $horaIn = date("H:i");
+              $preco = $_POST['preco'];
+              if(isset($_POST['cortesia']))  $cortesia = "S";
+              else $cortesia = "N";
               if(empty($placa)){
                 $erro ++;
                 $one = "Campo placa não preenchido";
               }
               if($erro == 0){
-                $sql = "insert into registros (PLACA, MODELO, COR, DATA, HORAIN) values 
-                        ('$placa', '$modelo', '$cor', '$data', '$horaIn')";
+                $sql = "insert into registros (PLACA, MODELO, COR, DATA, HORAIN, CORTESIA) values 
+                        ('$placa', '$modelo', '$cor', '$data', '$horaIn', '$cortesia')";
                 if(mysqli_query($conexao, $sql)){
                   echo "<h4 id=\"msg-ok\">Registro efetuado com sucesso!</h4>";
                   include_once "../escpos-php/example/interface/ethernet.php";
@@ -88,11 +91,11 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">Preço:</span>
               </div>
-            <input type="text"  id="modelo" name="modelo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">*Opcional
+            <input type="text"  id="preco" name="preco" class="form-control" aria-label="Sizing example input" placeholder="Sugerido..."aria-describedby="inputGroup-sizing-default">*Opcional
           </div>
           <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">CREDENCIAL</label>
+            <input type="checkbox" name="cortesia" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">CORTESIA</label>
           </div>
           <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Imprimir</button>
     		</form>
