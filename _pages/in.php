@@ -49,11 +49,17 @@
                 $one = "Campo placa não preenchido";
               }
               if($erro == 0){
-                $sql = "insert into registros (PLACA, MODELO, COR, DATA, HORAIN, CORTESIA) values 
-                        ('$placa', '$modelo', '$cor', '$data', '$horaIn', '$cortesia')";
+                $sql = "insert into registros (PLACA, MODELO, COR, DATA, HORAIN, CORTESIA, ID_EVENTO) values 
+                        ('$placa', '$modelo', '$cor', '$data', '$horaIn', '$cortesia', 1)";
                 if(mysqli_query($conexao, $sql)){
                   echo "<h4 id=\"msg-ok\">Registro efetuado com sucesso!</h4>";
-                  include_once "../escpos-php/example/interface/ethernet.php";
+                  $sql = "select ID from registros where PLACA = '$placa'";
+                  $resultado = mysqli_query($conexao, $sql);
+                  $id_print = mysqli_fetch_array($resultado);
+                  if($cortesia == 'N') {
+                    include_once "../escpos-php/example/interface/test02.php";
+                  }
+                  else include_once "../escpos-php/example/interface/test01.php";
                 }else echo mysqli_error($conexao);
               }
               else{
@@ -91,11 +97,11 @@
             <div class="input-group-prepend">
                 <span class="input-group-text" id="inputGroup-sizing-default">Preço:</span>
               </div>
-            <input type="text"  id="preco" name="preco" class="form-control" aria-label="Sizing example input" placeholder="Sugerido..."aria-describedby="inputGroup-sizing-default">*Opcional
+            <input type="text"  id="preco" name="preco" class="form-control" aria-label="Sizing example input" placeholder="R$ 20,00"aria-describedby="inputGroup-sizing-default">*Opcional
           </div>
           <div class="form-group form-check">
             <input type="checkbox" name="cortesia" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">CORTESIA</label>
+            <label class="form-check-label" for="exampleCheck1">CREDENCIAL</label>
           </div>
           <button name="Confirmar" value="Confirmar" type="submit" class="btn btn-primary">Imprimir</button>
     		</form>
