@@ -55,12 +55,12 @@
                   <!-- FRONT-END, CAIXA DE PESQUISA -->
     <!-- ******************************************************************* -->
 
-    <div>
-      <form action="" method="post" id="form-pesq">
+    <div id="form-pesq">
+      <form action="" method="post">
         <div class="form-group">
           <input name="pesq" id='pesq' type="text" class="form-control" id="validationCustom01" placeholder="Pesquisar">
-          <button type="submit" name="search" class="btn btn-outline-dark"><!--<i class="material-icons">&#xe8b6;</i>--></button>
-          <button type="submit" name="search_exclusive" class="btn btn-outline-dark"><!--<i class="material-icons">&#xe8b6;</i>--></button>
+          <button id="first_btn" type="submit" name="search" class="btn btn-outline-dark">Pesquisa normal</button><br>
+          <button id="second_btn" type="submit" name="search_exclusive" class="btn btn-outline-dark">Pesquisa por credencial</button><br>
         </div>
       </form>
     </div>
@@ -69,23 +69,24 @@
                        <!-- TABELA DE REGISTROS -->
     <!-- ******************************************************************* -->
     
-    <div class="table-reg">
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Placa</th>
-            <th scope="col">Horário de entrada</th>
-            <th scope="col">Horário de saída</th>
-            <th scope="col">Data</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div id="table-reg">
         <?php
         $resultado = '';
         if(isset($_POST['search'])) {
+          ?>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Placa</th>
+                <th scope="col">Horário de entrada</th>
+                <th scope="col">Data</th>
+              </tr>
+            </thead>
+            <tbody>
+        <?php
           $id = $_POST['pesq'];
-          $sql = "select ID, PLACA, HORAIN, HORAOUT, DATA from registros where ID = '$id'";
+          $sql = "select ID, PLACA, HORAIN, DATA from registros where ID = '$id' or PLACA = '$id'";
           $resultado = mysqli_query($conexao, $sql);
           while($row = mysqli_fetch_array($resultado)){ ?>
             <tr>
@@ -93,7 +94,6 @@
               <td><?php echo "$row[1]";?></td>
               <td><?php echo "$row[2]";?></td>
               <td><?php echo "$row[3]";?></td>
-              <td><?php echo "$row[4]";?></td>
             </tr>
         <?php
           }
@@ -101,16 +101,23 @@
         <?php
         $resultado = '';
         if(isset($_POST['search_exclusive'])) {
+          ?>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Id Exlusivo</th>
+              </tr>
+            </thead>
+            <tbody>
+        <?php
           $id = $_POST['pesq'];
-          $sql = "select CODIGO from credencial where ID_EXTERNO = '$id'";
+          $sql = "select CODIGO, ID_EXTERNO from credencial where ID_EXTERNO = '$id'";
           $resultado = mysqli_query($conexao, $sql);
           while($row = mysqli_fetch_array($resultado)){ ?>
             <tr>
               <th scope="row"><?php echo "$row[0]";?></td>
-              <td><?php echo "$row[1]";?></td>
-              <td><?php echo "$row[2]";?></td>
-              <td><?php echo "$row[3]";?></td>
-              <td><?php echo "$row[4]";?></td>
+              <td>00<?php echo "$row[1]";?></td>
             </tr>
         <?php
           }
