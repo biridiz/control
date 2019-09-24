@@ -21,6 +21,7 @@ create table registros (
 	ID_EVENTO integer(6)
 );
 
+ALTER TABLE registros ADD QNTDIAS INT(2);
 ALTER TABLE registros ADD CONSTRAINT fk_evento FOREIGN KEY (ID_EVENTO) REFERENCES evento (ID);
 ALTER TABLE registros ADD CONSTRAINT fk_user FOREIGN KEY (ID_USER) REFERENCES usr (ID);
 ALTER TABLE registros ADD CONSTRAINT fk_cliente FOREIGN KEY (ID_CLIENTE) REFERENCES cliente (ID);
@@ -125,8 +126,8 @@ insert into credencial (CODIGO, ID_EXTERNO) ('SAHD83470GSJS834', 002),
 											('SAHD83470GSJS834', 071),
 											('QGHD83470GSJS834', 072),
 											('QADD83470GSJS834', 073),
-											('QXSW83470GSJS834', 075),
-											('QZAQ83470GSJS834', 074),
+											('QXSW83470GSJS834', 074),
+											('QZAQ83470GSJS834', 075),
 											('QCDE83470GSJS834', 076),
 											('QVFR83470GSJS834', 077),
 											('QBGT83470GSJS834', 078),

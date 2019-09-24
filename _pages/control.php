@@ -11,49 +11,161 @@
       <title id="title">Controle</title>
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
     </head>
-    <body>
-      <?php include_once "../_include/conexao.php"; ?>
-      <?
-        $sql = "select ID, placa, modelo, cor, horaIn, horaOut, data from registros";
-        $resultado = mysqli_query($conexao, $sql);
-      ?>
-
+    <body id="body-control">
+      
       <div>
-        <form action="" method="post">
-          <label for="search">Filtrar por:</label><br>
-          <input type="checkbox" id="id" name="id" value ="1"> ID <br>
-          <input type="checkbox" id="placa" name="placa" value ="2"> Placa <br>
-          <input type="checkbox" id="model" name="model" value ="3"> Modelo <br>
-          <input type="checkbox" id="cor" name="cor" value ="4"> Cor <br>
-          <input type="checkbox" id="date" name="date" value ="5"> Data <br>
-          
-          <label for="cor">Search:</label><br>
-          <input type="text" placeholder="Search..." id="cor" name="cor"> <hr>
-        </form>
-        <table border = "1">
-          <tr>
-            <th>Id</th>
-            <th>Placa</th>
-            <th>Modelo</th>
-            <th>Cor</th>
-            <th>Horário de entrada</th>
-            <th>Horário de saída</th>
-            <th>Data</th>
-            <th>Tempo</th>
-          </tr>
-          <tr>
-          <? while($row = mysqli_fetch_array($resultado)){ ?>
-              <td><? echo "%row['ID']";?></td>
-              <td><? echo "%row['placa']";?></td>
-              <td><? echo "%row['modelo']";?></td>
-              <td><? echo "%row['cor']";?></td>
-              <td><? echo "%row['horaIn']";?></td>
-              <td><? echo "%row['horaOut']";?></td>
-              <td><? echo "%row['data']";?></td>
-              <td>**</td>
-          <? } ?>
-          </tr>
-        </table>
+        <header>
+          <?php include_once "../_include/conexao.php"; ?>
+          <form id="form-control" action="" method="post">
+            <span class="btn-control">
+               <button type="submit" name="registros">Registros</button>
+            </span>
+            <span class="btn-control">
+               <button type="submit" name="users">Users</button>
+            </span>
+            <span class="btn-control">
+               <button type="submit" name="clientes">Clientes</button>
+            </span>
+            <span class="btn-control">
+               <button type="submit" name="eventos">Eventos</button>
+            </span>
+            <span>
+              <a href="index.php">Voltar</a>
+            </span>
+          </form>
+        </header>
       </div>
+
+      <form action="" method="post">
+        <div>
+          <section>
+            <?php
+            if(isset($_POST['registros'])){?>
+                <div>
+                  <button type="submit" name="ls">Listar todos</button>
+                  <button type="submit" name="pesq">Pesquisar</button><br>
+                </div>
+                <label>Filtrar por:</label><br>
+                <span>
+                  <input name="id" type="text" placeholder="ID">
+                </span>
+                <span>
+                  <input name="placa" type="text" placeholder="PLACA">
+                </span>
+                <span>
+                  <input name="cor" type="text" placeholder="COR">
+                </span>
+                <span>
+                  <input name="modelo" type="text" placeholder="MODELO">
+                </span>
+                <span>
+                  <input type="text" placeholder="DIA ">
+                </span>
+              </form> <br> <hr> <br><?
+            }
+            ?>
+          </section>
+        </div><?
+        if(isset($_POST['ls'])){
+          include '../_control/listar-todos-R.php';
+        }
+        if(isset($_POST['pesq'])){
+          $id = $_POST['id'];
+          $placa = $_POST['placa'];
+          $modelo = $_POST['modelo'];
+          $cor = $_POST['cor'];
+
+          if(empty($id)) true;
+          else include '../_control/filtrar-id-R.php';
+          
+          if(empty($placa)) true;
+          else include '../_control/filtrar-placa-R.php';
+
+          if(empty($modelo)) true;
+          else include '../_control/filtrar-modelo-R.php';
+
+          if(empty($cor)) true;
+          else include '../_control/filtrar-cor-R.php';
+        }?>
+
+        <div>
+          <section>
+            <?php
+            if(isset($_POST['users'])){?>
+                <div>
+                  <button type="submit" name="ls">Listar todos</button>
+                  <button type="submit" name="pesq">Pesquisar</button><br>
+                </div>
+                <label>Filtrar por:</label><br>
+                <span>
+                  <input name="id" type="text" placeholder="ID">
+                </span>
+                <span>
+                  <input type="text" placeholder="NOME">
+                </span>
+                <span>
+                  <input type="text" placeholder="TELEFONE">
+                </span>
+              </form> <br> <hr> <br><?
+            }
+            ?>
+          </section> 
+        </div><?
+        if(isset($_POST['ls-reg'])){
+          include '../_control/listar-todos-R.php';
+        }?>
+        <div>
+          <section>
+            <?php
+            if(isset($_POST['clientes'])){?>
+                <div>
+                  <button type="submit" name="ls">Listar todos</button>
+                  <button type="submit" name="pesq">Pesquisar</button><br>
+                </div>
+                <label>Filtrar por:</label><br>
+                <span>
+                  <input type="text" placeholder="ID">
+                </span>
+                <span>
+                  <input type="text" placeholder="NOME">
+                </span>
+                <span>
+                  <input type="text" placeholder="TELEFONE">
+                </span>
+                <span>
+                  <input type="text" placeholder="CPF">
+                </span>
+              </form> <br> <hr> <br><?
+            }
+            ?>
+          </section> 
+        </div>
+
+        <div>
+          <section>
+            <?php
+            if(isset($_POST['eventos'])){?>
+                <div>
+                  <button type="submit" name="ls">Listar todos</button>
+                  <button type="submit" name="pesq">Pesquisar</button><br>
+                </div>
+                <label>Filtrar por:</label><br>
+                <span>
+                  <input type="text" placeholder="ID">
+                </span>
+                <span>
+                  <input type="text" placeholder="NOME">
+                </span>
+                <span>
+                  <input type="text" placeholder="CIDADE">
+                </span>
+              </form> <br> <hr> <br><?
+            }
+            ?>
+          </section> 
+        </div>
+      </form>
+
+
     </body>
 </html>

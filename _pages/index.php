@@ -22,49 +22,109 @@
 
       <title id="title">Página inicial</title>
       <link rel="stylesheet" href="../_estilo/estilo.css"><!--importando o arquivo css-->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
 	</head>
 
   <!-- ******************************************************************* -->
-                  <!-- FRONT-END, BOTÔES DO MENU -->
+          <!-- BACK-END, ENVIO DE FORMULÁRIO -->
   <!-- ******************************************************************* -->
 
+      <?php include_once "../_include/conexao.php" ?>
+          <?php
+            date_default_timezone_set('America/Sao_Paulo');
+            $erro = 0;
+            $placa = '';
+            if(isset($_POST['in'])){
+              $placa = strtoupper($_POST['placa']);
+              $data = date("Y/m/d");
+              $horaIn = date("H:i");
+              if(isset($_POST['cortesia']))  $cortesia = "S";
+              else $cortesia = "N";
+              if(empty($placa)){
+                $erro ++;?>
+                <script>
+                  alert("Campo placa não preenchido");
+                  alert("Ocorreu um erro no registro!")
+                </script><?
+              }
+              if($erro == 0){
+                $sql = "insert into registros (PLACA, DATA, HORAIN, CORTESIA, ID_EVENTO) values 
+                        ('$placa', '$data', '$horaIn', '$cortesia', 1)";
+                if(mysqli_query($conexao, $sql)){?>
+                  <script>
+                      alert("Registro efetuado com sucesso!");
+                  </script><?
+                  $sql = "select ID from registros where PLACA = '$placa'";
+                  $resultado = mysqli_query($conexao, $sql);
+                  $id_print = mysqli_fetch_array($resultado);
+                  if($cortesia == 'N') {
+                    require_once('../escpos-php/example/interface/test02.php');
+                  }
+                  else require_once('../escpos-php/example/interface/test01.php');
+                }else echo mysqli_error($conexao);
+              }
+            }
+            if(isset($_POST['out'])){
+              if(empty($_POST['placa'])){?>
+                <script>
+                  alert("Campo placa não preenchido");
+                  alert("Ocorreu um erro no registro!")
+                </script><?
+              }
+              else{
+                $placa = $_POST['placa'];
+                date_default_timezone_set('America/Sao_Paulo');
+                $hora = date("H:i");
+                $sql = "update registros set HORAOUT = '$hora' where PLACA = '$placa'";
+                echo mysqli_error($conexao);
+                if(mysqli_query($conexao, $sql)){?>
+                  <script>
+                    alert("Registro efetuado com sucesso!");
+                  </script><?
+                }
+                else echo "erro"; 
+              }
+            }
+          ?>
+
+    <!-- ******************************************************************* -->
+               <!-- FRONT-END, FORMULÁRIO DE REGISTRO DE ENTRADA -->
+    <!-- ******************************************************************* -->
   <body id="body-index">
-		<div id="box-opt">
-			<form action="" method="post">
-        <button type="submit" name="in" class="btn btn-primary btn-lg btn-block">Registrar Entrada</button>
-        <button type="submit" name="out" class="btn btn-primary btn-lg btn-block">Registrar Saída</button>
-        <button type="submit" name="config" class="btn btn-primary btn-lg btn-block"disabled>Controle</button>
-			</form>
-		</div>
-    
-    <!-- ******************************************************************* -->
-          <!-- BACK-END, REDIRECIONAMENTO DE ACORDO COM BOTÔES -->
-    <!-- ******************************************************************* -->
-
-      <?php include_once "../_include/conexao.php";
-        if(isset($_POST['in'])){
-          header("Location: ../_pages/in.php");
-        }
-        if(isset($_POST['out'])){
-          header("Location: ../_pages/out.php");
-        } 
-      ?>
-
-    <!-- ******************************************************************* -->
-                  <!-- FRONT-END, CAIXA DE PESQUISA -->
-    <!-- ******************************************************************* -->
-
-    <div id="form-pesq">
+    <div>
       <form action="" method="post">
-        <div class="form-group">
-          <input name="pesq" id='pesq' type="text" class="form-control" id="validationCustom01" placeholder="Pesquisar">
-          <button id="first_btn" type="submit" name="search" class="btn btn-outline-dark">Pesquisa normal</button><br>
-          <button id="second_btn" type="submit" name="search_exclusive" class="btn btn-outline-dark">Pesquisa por credencial</button><br>
+        <div id="btn-op" >
+           <button type="submit" name="control" >Config</button>
+           <?
+           if(isset($_POST['control'])){
+            header("Location: ../_pages/control.php");
+           }
+           ?>
         </div>
+        <div>
+          <div>
+            <input type="text" id="placa" name="placa" placeholder="PLACA">
+          </div>
+          <div id="credencial">
+            <input type="checkbox" name="cortesia" checked>
+            <!--<input type="checkbox" name="cortesia">-->
+            <label>CREDENCIAL</label>
+          </div>
+        </div>
+    		<div id="box-opt">
+            <button class="btn-index" type="submit" name="in" >Entrada / Imprimir</button>
+            <button class="btn-index" type="submit" name="out" >Registrar Saída</button>
+    		</div>
+
+        <div id="form-pesq">
+          <div>
+            <input class="form-form" name="pesq" id='pesq' type="text" placeholder="Pesquisar"><br>
+            <button id="first_btn" type="submit" name="search">Normal</button>
+            <button id="second_btn" type="submit" name="search_exclusive">Credencial</button><br>
+          </div>
       </form>
     </div>
-    
+  
     <!-- ******************************************************************* -->
                        <!-- TABELA DE REGISTROS -->
     <!-- ******************************************************************* -->
@@ -74,8 +134,8 @@
         $resultado = '';
         if(isset($_POST['search'])) {
           ?>
-          <table class="table">
-            <thead class="thead-dark">
+          <table>
+            <thead>
               <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Placa</th>
@@ -102,8 +162,8 @@
         $resultado = '';
         if(isset($_POST['search_exclusive'])) {
           ?>
-          <table class="table">
-            <thead class="thead-dark">
+          <table>
+            <thead>
               <tr>
                 <th scope="col">Código</th>
                 <th scope="col">Id Exlusivo</th>
