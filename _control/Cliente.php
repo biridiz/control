@@ -45,7 +45,7 @@ class Cliente {
 		
 		include_once "../_include/conexao.php";
 
-		$sql = "insert into usr(NOME, TELEFONE, CPF) values ('$paramNome', '$paramTelefone', '$paramCpf')";
+		$sql = "insert into cliente(NOME, TELEFONE, CPF) values ('$paramNome', '$paramTelefone', '$paramCpf')";
 		if(mysqli_query($conexao, $sql)) {
 			return true;
 		} else { return false; }
@@ -55,7 +55,7 @@ class Cliente {
 
 		include_once "../_include/conexao.php";
 
-		$sql = "update Cliente set NOME = '$paramNome' where ID = '$paramID'";
+		$sql = "update cliente set NOME = '$paramNome' where ID = '$paramID'";
 		if(mysqli_query($conexao, $sql)) {
 			return true;
 		} else { return false; }
@@ -65,7 +65,7 @@ class Cliente {
 
 		include_once "../_include/conexao.php";
 
-		$sql = "update Cliente set TELEFONE = '$paramTelefone' where ID = '$paramID'";
+		$sql = "update cliente set TELEFONE = '$paramTelefone' where ID = '$paramID'";
 		if(mysqli_query($conexao, $sql)) {
 			return true;
 		} else { return false; }
@@ -75,7 +75,7 @@ class Cliente {
 
 		include_once "../_include/conexao.php";
 
-		$sql = "update Cliente set CPF = '$paramCpf' where ID = '$paramID'";
+		$sql = "update cliente set CPF = '$paramCpf' where ID = '$paramID'";
 		if(mysqli_query($conexao, $sql)) {
 			return true;
 		} else { return false; }
@@ -97,9 +97,11 @@ class Cliente {
 
 		$sql = "select ID, NOME, TELEFONE, CPF from Cliente";
 		$resultado = mysqli_query($conexao, $sql);
-		$row = mysqli_fetch_array($resultado);
-		if(mysqli_query($conexao, $sql)) {
-			return $row;
-		} else { return false; }
+		$query = array();
+		while($row = mysqli_fetch_assoc($resultado)){
+    		$query[] = $row;
+		}
+
+		return $query;	
 	}
 }

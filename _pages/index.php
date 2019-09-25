@@ -146,7 +146,7 @@
             <tbody>
         <?php
           $id = $_POST['pesq'];
-          $sql = "select ID, PLACA, HORAIN, DATA from registros where ID = '$id' or PLACA = '$id'";
+          $sql = "select ID, PLACA, HORAIN, date_format(DATA, '%d/%m/%Y') AS DATA from registros where ID = '$id' or PLACA = '$id'";
           $resultado = mysqli_query($conexao, $sql);
           while($row = mysqli_fetch_array($resultado)){ ?>
             <tr>

@@ -82,9 +82,11 @@ class User {
 
 		$sql = "select ID, NOME, TELEFONE from usr";
 		$resultado = mysqli_query($conexao, $sql);
-		$row = mysqli_fetch_array($resultado);
-		if(mysqli_query($conexao, $sql)) {
-			return $row;
-		} else { return false; }
+		$query = array();
+		while($row = mysqli_fetch_assoc($resultado)){
+    		$query[] = $row;
+		}
+
+		return $query;	
 	}
 }

@@ -1,3 +1,16 @@
+ <!-- ******************************************************************* -->
+                 <!-- BACK-END, VALIDAÇÃO DE ACESSO -->
+  <!-- ******************************************************************* -->
+  
+<?php
+  session_start();
+  if(!isset($_SESSION['usuario']) & !isset($_SESSION['inicio'])){
+    echo "Esta página é restrita a usuarios autenticados. Por gentileza volte para a página
+    de <a href=\"login.php\">login</a>";
+    die(); // Interrompe a navegação
+  };
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -21,7 +34,7 @@
                <button type="submit" name="registros">Registros</button>
             </span>
             <span class="btn-control">
-               <button type="submit" name="users">Users</button>
+               <button type="submit" name="users">Funcionários</button>
             </span>
             <span class="btn-control">
                <button type="submit" name="clientes">Clientes</button>
@@ -59,8 +72,12 @@
                   <input name="modelo" type="text" placeholder="MODELO">
                 </span>
                 <span>
-                  <input type="text" placeholder="DIA ">
+                  <input name="data" type="date" placeholder="DIA ">
                 </span>
+                <span>
+                  <input name="cred" type="text" placeholder="CREDENCIAL">
+                </span>
+                <span>
               </form> <br> <hr> <br><?
             }
             ?>
@@ -74,6 +91,8 @@
           $placa = $_POST['placa'];
           $modelo = $_POST['modelo'];
           $cor = $_POST['cor'];
+          $data = $_POST['data'];
+          $cred = $_POST['cred'];
 
           if(empty($id)) true;
           else include '../_control/filtrar-id-R.php';
@@ -86,6 +105,12 @@
 
           if(empty($cor)) true;
           else include '../_control/filtrar-cor-R.php';
+
+          if(empty($data)) true;
+          else include '../_control/filtrar-data-R.php';
+
+          if(empty($cred)) true;
+          else include '../_control/filtrar-cred-R.php';
         }?>
 
         <div>
