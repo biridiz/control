@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="../_estilo/estilo.css">
+<style type="text/css">
+  .btn-edit{
+    float: right;
+    font-size: 6px;
+  }
+</style>
 <div>
   <section>
   <?php
@@ -7,31 +13,54 @@
     $row = $reg->filtrarData($data);?>
     <table>
       <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Placa</th>
-          <th scope="col">Modelo</th>
-          <th scope="col">Cor</th>
-          <th scope="col">Data</th>
-          <th scope="col">Credencial</th>
-          <th scope="col">Hora de entrada</th>
-          <th scope="col">Hora de saída</th>
+        <form action="" method="post">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Placa</th>
+            <th scope="col">Modelo</th>
+            <th scope="col">Cor</th>
+            <th scope="col">Data</th>
+            <th scope="col">Credencial</th>
+            <th scope="col">Hora de entrada</th>
+            <th scope="col">Hora de saída</th>
+            <th scope="row"><button name="edit" <? if(isset($_POST['edit'])) header("Location: ../_pages/editar.php");?>>Editar</button></th>
+            <th scope="row"><button name="delete" <? if(isset($_POST['delete'])) header("Location: ../_pages/editar.php");?>>Excluir</button></th>      
           </tr>
-        </thead><?
-        for($i = 0; $i < sizeof($row); $i++){?>
-          <tbody>
-            <tr>
-              <th scope="row"><?php echo $row[$i]['ID'];?></td>
-                <th scope="row"><?php echo $row[$i]['PLACA'];?></td>
-                <th scope="row"><?php echo $row[$i]['MODELO'];?></td>
-                <th scope="row"><?php echo $row[$i]['COR'];?></td>
-                <th scope="row"><?php echo $row[$i]['DATA'];?></td>
-                <th scope="row"><?php echo $row[$i]['CORTESIA'];?></td>
-                <th scope="row"><?php echo $row[$i]['HORAIN'];?></td>
-                <th scope="row"><?php echo $row[$i]['HORAOUT'];?></td>      
-              </tr>
-          </tbody><?
-        }?>
-      </table>
+        </form>
+      </thead><?
+        
+      for($i = 0; $i < sizeof($row); $i++){?>
+        <tbody>
+           <tr>
+            <span>
+               <td scope="row"><?php echo $row[$i]['ID'];?></td>
+            </span>
+            <span>
+               <td scope="row"><?php echo $row[$i]['PLACA'];?></td>
+            </span>
+            <span>
+              <td scope="row"><?php echo $row[$i]['MODELO'];?></td>
+            </span>
+            <span>
+              <td scope="row"><?php echo $row[$i]['COR'];?></td>
+            </span>
+            <span>
+              <td scope="row"><?php echo $row[$i]['DATA'];?></td>
+            </span>
+            <span>
+              <td scope="row"><?php echo $row[$i]['CORTESIA'];?></td>
+            </span>
+            <span>
+              <td scope="row"><?php echo $row[$i]['HORAIN'];?></td>
+            </span>
+            <span>
+              <td scope="row"><?php echo $row[$i]['HORAOUT'];?></td>      
+            </span>
+          </tr> 
+        </tbody><?
+      }
+      ?>
+
+    </table>
   </section>
 </div>

@@ -5,6 +5,10 @@ class Registro {
 		
 	}
 
+	public function modificaPlaca($paramPlaca){
+		echo $paramPlaca;
+	}
+
 	public function filtrarId($paramID){
 
 		include "../_include/conexao.php";
@@ -13,7 +17,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		$query = array();
@@ -32,7 +36,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		$query = array();
@@ -51,7 +55,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		$query = array();
@@ -70,7 +74,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		$query = array();
@@ -89,7 +93,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		$query = array();
@@ -108,7 +112,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		$query = array();
@@ -130,7 +134,7 @@ class Registro {
 		
 		$resultado = mysqli_query($conexao, $sqlCont);
 		$cont = mysqli_fetch_array($resultado);
-		echo "->Total de Registros: $cont[0]";
+		echo "->Total de Registros: $cont[0]\n";
 
 		$resultado = mysqli_query($conexao, $sql);
 		while($row = mysqli_fetch_assoc($resultado)){
