@@ -82,7 +82,6 @@
                     alert("Registro efetuado com sucesso!");
                   </script><?
                 }
-                else echo "erro"; 
               }
             }
           ?>

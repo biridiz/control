@@ -56,7 +56,9 @@
             if(isset($_POST['registros'])){?>
                 <div>
                   <button type="submit" name="ls">Listar todos</button>
-                  <button type="submit" name="pesq">Pesquisar</button><br>
+                  <button type="submit" name="pesq">Pesquisar</button>
+                  <button type="submit" name="edit">Editar</button>
+                  <button type="submit" name="delet">Excluir</button><br>
                 </div>
                 <label>Filtrar por:</label><br>
                 <span>
@@ -83,6 +85,8 @@
             ?>
           </section>
         </div><?
+        if(isset($_POST['edit'])) include 'editar-R.php';
+        if(isset($_POST['delet'])) include 'excluir-R.php';
         if(isset($_POST['ls'])){
           include '../_control/listar-todos-R.php';
         }

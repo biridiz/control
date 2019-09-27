@@ -22,9 +22,7 @@
             <th scope="col">Data</th>
             <th scope="col">Credencial</th>
             <th scope="col">Hora de entrada</th>
-            <th scope="col">Hora de saída</th>
-            <th scope="row"><a href="../_pages/editar.php">Editar</a></th>
-            <th scope="row"><a href="../_pages/excluir.php">Excluir</a></th>    
+            <th scope="col">Hora de saída</th>  
           </tr>
         </form>
       </thead><?

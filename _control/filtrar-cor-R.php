@@ -16,9 +16,7 @@
             <th scope="col">Data</th>
             <th scope="col">Credencial</th>
             <th scope="col">Hora de entrada</th>
-            <th scope="col">Hora de saída</th>
-            <th scope="row"><button name="edit" <? if(isset($_POST['edit'])) header("Location: ../_pages/editar.php");?>>Editar</button></th>
-            <th scope="row"><button name="delete" <? if(isset($_POST['delete'])) header("Location: ../_pages/editar.php");?>>Excluir</button></th>      
+            <th scope="col">Hora de saída</th>   
           </tr>
         </form>
       </thead><?

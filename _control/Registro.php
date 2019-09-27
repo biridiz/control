@@ -1,15 +1,71 @@
 <?php
 class Registro {
 
+	public $ok;
+	private $id;
+
 	public function __construct(){
-		
+
 	}
 
-	public function modificaPlaca($paramPlaca){
-		echo $paramPlaca;
+	public function setId($paramID){
+		$this->id = $paramID;
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+
+	public function modificarPlaca($paramPlaca, $paramID){
+		
+		include "../_include/conexao.php";
+
+		$sql = "update registros set PLACA = '$paramPlaca' where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			$ok = true;
+		}else $ok = false;
+
+		return $ok;
+	}
+
+	public function modificarCor($paramCor, $paramID){
+		
+		include "../_include/conexao.php";
+
+		$sql = "update registros set COR = '$paramCor' where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			$ok = true;
+		}else $ok = false;
+
+		return $ok;
+	}
+
+	public function modificarModelo($paramModelo, $paramID){
+		
+		include "../_include/conexao.php";
+
+		$sql = "update registros set MODELO = '$paramModelo' where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			$ok = true;
+		}else $ok = false;
+
+		return $ok;
+	}
+
+	public function modificarData($paramData, $paramID){
+		
+		include "../_include/conexao.php";
+
+		$sql = "update registros set DATA = '$paramData' where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			$ok = true;
+		}else $ok = false;
+
+		return $ok;
 	}
 
 	public function filtrarId($paramID){
+
 
 		include "../_include/conexao.php";
 		$sql = "select ID, PLACA, MODELO, COR, date_format(DATA, '%d/%m/%Y') AS DATA, CORTESIA, HORAIN, HORAOUT from registros where ID = '$paramID'";
@@ -121,6 +177,16 @@ class Registro {
 		}
 
 		return $query;
+	}
+
+	public function deletar($paramID) {
+
+		include_once "../_include/conexao.php";
+
+		$sql = "delete from registros where ID = '$paramID'";
+		if(mysqli_query($conexao, $sql)) {
+			return true;
+		} else { return false; }
 	}
 
 	public function listar() {

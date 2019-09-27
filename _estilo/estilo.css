@@ -120,3 +120,46 @@ td, th, tr{
 	height: 100px;
 }
 
+/*Estilo da página de edição*/
+
+#body-edit{
+	background-color: rgb(220, 230, 230);
+}
+
+#tt-edit{
+	text-align: center;
+}
+
+#box-edit{
+	width: 40%;
+	height: 200px;
+	border: 3px solid white;
+	padding: 0.5%;
+	margin-left: 30%;
+}
+
+.form-edit{
+	margin: 0.5%;
+}
+
+/*Estilo da página de exclusão*/
+
+#body-delet{
+	background-color: rgb(220, 230, 230);
+}
+
+#tt-delet{
+	text-align: center;
+}
+
+#box-delet{
+	width: 40%;
+	height: 200px;
+	border: 3px solid white;
+	padding: 0.5%;
+	margin-left: 30%;
+}
+
+.form-delet{
+	margin: 0.5%;
+}
